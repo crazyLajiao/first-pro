@@ -10,7 +10,9 @@ export default {
       
     }
   },
-
+  mounted(){
+    wx.navigateTo({url:'/pages/login/main'})
+  },
   components: {
     
   },
