@@ -1,6 +1,6 @@
 // import { baseUrl } from '../config/env'
 
-export default async (url = '', data = {}, method = 'POST') => {
+export default async (url = '', data = {}, method = 'GET') => {
     return new Promise((resolve, reject) => {
         console.log(data)
         let token
@@ -10,7 +10,6 @@ export default async (url = '', data = {}, method = 'POST') => {
             // token='pax2yg1'
             token = user.token
         }
-
         // if (data.data) {
         //     data.data.sid = parseInt(ext.attr.sid)
         //     // data.data.sid = 21
@@ -22,7 +21,8 @@ export default async (url = '', data = {}, method = 'POST') => {
         // }
 
         // console.log(JSON.stringify(data.data))
-        url = 'http://api.mall.shaoky.com/' + url
+        // url = 'http://api.mall.shaoky.com/' + url
+        url = 'http://localhost:3000/' + url
         wx.request({
             url,
             data: data.data,
@@ -34,7 +34,7 @@ export default async (url = '', data = {}, method = 'POST') => {
             },
             // header: {'content-type': 'application/x-www-form-urlencoded'},
             success: res => {
-                if (res.data.code === 200) {
+                if (res.statusCode === 200) {
                     // console.log(JSON.stringify(res.data))
                     resolve(res.data)
                 } else {
@@ -42,7 +42,7 @@ export default async (url = '', data = {}, method = 'POST') => {
                         title: res.data.message,
                         icon: 'none'
                     })
-                    if (res.data.code === 401) {
+                    if (res.res.statusCode === 401) {
                         wx.removeStorageSync('user')
                         wx.navigateTo({
                             url: '/pages/login/index/main'

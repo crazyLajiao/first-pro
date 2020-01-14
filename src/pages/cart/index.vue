@@ -1,6 +1,6 @@
 <template>
   <view>
-    <view class="wrapper" v-if="shoplist.length">
+    <view class="wrapper" v-if="shoplist.length>0">
       <view class="shop-wrapper" v-for="(item,index) in shoplist" :key="index">
         <view class="shop-name">
           <icon class="circle" type="circle" size="18"></icon>

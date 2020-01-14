@@ -1,5 +1,8 @@
 import request from '../config/request'
 
+
+export const getRandomList = (data)=>request('random/find',{data})
+
 export const wxLogin = (data) => request('wx/register', {data})
 /**
  * 首页

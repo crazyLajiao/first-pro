@@ -8,26 +8,30 @@
     </ul>
     <h3 class="see">随便看看</h3>
     <!-- <div></div> -->
-    <scroll-view class="scroll-wrapper" scroll-y="true" bindscrolltolower="lower" bindscroll="scroll">
-      <view class="item-wrapper" v-for="(item,index) in list" :key="index">
-        <view class="item-container">
-          <image :src="item.imgUrl" class="main_img"></image>
-          <text class="title">{{item.title}}</text>
-          <view class="userinfo">
-            <image class="avatar" :src="item.avatar"></image>
-            <text class="username">{{item.username}}</text>
-            <icon class="stars icte" type="info" size="12"></icon><text class="star_text icte">{{item.stars}}</text>
-            <icon class="comments icte" type="waiting" size="12"></icon><text class="com_text icte">{{item.comments}}</text>
+    <view class="scroll-container">
+      <scroll-view v-if="list.length>0" class="scroll-wrapper" style="height:100%" lower-threshold="100" scroll-y="true" @scrolltolower="lower" @scroll="scroll">
+        <view class="item-wrapper" v-for="(item,index) in list" :key="index">
+          <view class="item-container">
+            <image :src="item.imgUrl" class="main_img"></image>
+            <text class="title">{{item.title}}</text>
+            <view class="userinfo">
+              <image class="user_avatar" :src="item.user_avatar"></image>
+              <text class="user_name">{{item.user_name}}</text>
+              <icon class="star icte" type="info" size="12"></icon><text class="star_text icte">{{item.star}}</text>
+              <icon class="comments icte" type="waiting" size="12"></icon><text class="com_text icte">{{item.comments}}</text>
+            </view>
           </view>
         </view>
-      </view>
-    </scroll-view>
+        <view class="bottomline">没有更多数据了哦~</view>
+      </scroll-view>
+
+    </view>
   </div>
 </template>
 
 <script>
 // import card from '@/components/card'
-
+import {getRandomList} from '../../api/getData'
 export default {
   data() {
     return {
@@ -48,50 +52,68 @@ export default {
           text: "逛商城"
         }
       ],
-      list:[
-        {
-          artical_id: 200,
-          imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
-          title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
-          avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
-          user_id: 3000,
-          username: 'Aliilllll',
-          stars: 200,
-          comments: 20,
-        },
-        {
-          artical_id: 200,
-          imgUrl: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1970330762,216207101&fm=26&gp=0.jpg",
-          title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
-          avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
-          user_id: 3000,
-          username: 'Aliilllll',
-          stars: 200,
-          comments: 20,
-        },
-        {
-          artical_id: 200,
-          imgUrl: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=529811231,3180644869&fm=26&gp=0.jpg",
-          title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
-          avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
-          user_id: 3000,
-          username: 'Aliilllll',
-          stars: 200,
-          comments: 20,
-        },
-      ]
+      list: []
+      // list:[
+      //   {
+      //     artical_id: 200,
+      //     imgUrl: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
+      //     title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
+      //     user_avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
+      //     user_id: 3000,
+      //     user_name: 'Aliilllll',
+      //     star: 200,
+      //     comments: 20,
+      //   },
+      //   {
+      //     artical_id: 200,
+      //     imgUrl: "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1970330762,216207101&fm=26&gp=0.jpg",
+      //     title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
+      //     user_avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
+      //     user_id: 3000,
+      //     user_name: 'Aliilllll',
+      //     star: 200,
+      //     comments: 20,
+      //   },
+      //   {
+      //     artical_id: 200,
+      //     imgUrl: "https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=529811231,3180644869&fm=26&gp=0.jpg",
+      //     title: '给养宠物的你的一封信给养宠物的你的一封信给养宠物的你的一封信',
+      //     user_avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
+      //     user_id: 3000,
+      //     user_name: 'Aliilllll',
+      //     star: 200,
+      //     comments: 20,
+      //   },
+      // ]
     };
   },
   mounted() {
-    console.log("???????????");
+    this.getList(0,15);
   },
   components: {},
 
   methods: {
     lower(e) {
       console.log(e);
+      
+      let skip = this.list.length;
+      this.getList(skip,10)
     },
-    scroll() {}
+    async getList(skip,limit){
+      try{
+          const randomList = await getRandomList({skip,limit});
+          if (randomList.status == 1) {
+              this.list = [...this.list, ...randomList.data];
+          }else{
+              throw new Error('获取数据失败');
+          }
+      }catch(err){
+          console.log('获取数据失败', err);
+      }
+      console.log(this.list)
+    },
+    scroll() {
+    }
   },
 
   created() {}
@@ -100,13 +122,13 @@ export default {
 
 <style lang='less' scoped>
 .con{
-background: yellowgreen;
+// background: yellowgreen;
 }
 .nav-container {
   height: 200rpx;
   margin: 20rpx;
   display: flex;
-  background: red;
+  // background: red;
   .nav-item {
     flex: 1;
     padding: 5rpx;
@@ -133,24 +155,39 @@ background: yellowgreen;
   font-weight: bold;
   margin:50rpx 0rpx 20rpx 20rpx;
 }
+.scroll-container{
+  position: absolute;
+  left: 0;
+  right:0;
+  top: 330rpx;
+  bottom:0;
+  border-radius: 35rpx;
+  overflow: hidden;
+  .bottomline{
+    font-size: 34rpx;
+    color: #666;
+    margin: 30rpx;
+    text-align: center;
+
+  }
+}
 .scroll-wrapper{
   display: flex;
   .item-wrapper{
     display: inline-block; 
     width: 45%;
-    margin: 20rpx 2.5%;
+    margin: 0rpx 2.5% 20rpx;
     .item-container{
       width: 100%;
       display: flex;
       flex-direction: column;
-      background: #ccc;
+      // background: #ccc;
       .main_img{
         width:100%;
         border-radius: 10rpx;
       }
       .title{
         width: 100%;
-        height: 100rpx;
         font-size: 34rpx;
         color:#333;
         display: -webkit-box;
@@ -168,13 +205,13 @@ background: yellowgreen;
         padding: 5rpx;
         font-size: 24rpx;
         color: gray;
-        .avatar{
+        .user_avatar{
           // display: inline-block;
           width: 45rpx;
           height: 45rpx;
           border-radius: 50%;
         }
-        .username{
+        .user_name{
           flex:4;
           // vertical-align: middle;
           margin-left: 6rpx;
@@ -189,7 +226,7 @@ background: yellowgreen;
           // margin-right: 3rpx;
           display: inline-block;
         }
-        .stars{
+        .star{
           flex: 1
         }
         .comments{
@@ -204,7 +241,7 @@ background: yellowgreen;
           margin-left: 3rpx;
         }
       }
-}
+    }
   }
 }
 
