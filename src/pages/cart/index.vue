@@ -1,5 +1,13 @@
 <template>
-  <div>this is cart</div>
+  <div>
+    <div v-if="list.length">
+
+    </div>
+    <div class="blank_container" v-else>
+      <image class="blank_img" src="../../static/tabs/cart-active.png"></image>
+      <text class="blank_text">购物车空空如也，快去逛逛吧</text>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -7,11 +15,11 @@
 export default {
   data () {
     return {
-      
+      list:[]
     }
   },
   mounted(){
-    wx.navigateTo({url:'/pages/login/main'})
+    // wx.navigateTo({url:'/pages/login/main'})
   },
   components: {
     
@@ -27,55 +35,22 @@ export default {
 }
 </script>
 
-<style scoped>
-.userinfo {
+<style lang='less' scoped>
+
+.blank_container{
+  width: 80%;
+  height:100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-}
-
-.userinfo-avatar {
-  width: 128rpx;
-  height: 128rpx;
-  margin: 20rpx;
-  border-radius: 50%;
-}
-
-.userinfo-nickname {
-  color: #aaa;
-}
-
-.usermotto {
-  margin-top: 150px;
-}
-
-.form-control {
-  display: block;
-  padding: 0 12px;
-  margin-bottom: 5px;
-  border: 1px solid #ccc;
-}
-.all{
-  width:7.5rem;
-  height:1rem;
-  background-color:blue;
-}
-.all:after{
-  display:block;
-  content:'';
-  clear:both;
-}
-.left{
-  float:left;
-  width:3rem;
-  height:1rem;
-  background-color:red;
-}
-
-.right{
-  float:left;
-  width:4.5rem;
-  height:1rem;
-  background-color:green;
+  justify-content: center;
+  .blank_img{
+    width: 100%;
+  }
+  .blank_text{
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+  }
 }
 </style>
