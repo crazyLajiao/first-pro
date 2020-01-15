@@ -18,7 +18,21 @@ export function formatTime (date) {
   return `${t1} ${t2}`
 }
 
+export function formatNum(num){
+  let temp = num;
+  if(num>1000){
+    temp = num/1000;
+  }
+  if(temp>1000){
+    let reg=/\d{1,3}(?=(\d{3})+$)/g; 
+    temp = (temp+'').replace(reg,'$&,')
+  }
+  console.log(temp,'ttttttttttt')
+  return temp+'k';
+}
+
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  formatNum
 }

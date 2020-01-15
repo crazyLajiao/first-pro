@@ -1,7 +1,7 @@
 <template>
   <div class="con">
     <ul class="nav-container">
-      <li class="nav-item" v-for="(item,index) in navlist" :key="index">
+      <li class="nav-item" v-for="(item,index) in navlist" :key="index"  @click="handleNavItem(index)">
         <image :src="item.imgUrl"></image>
         <text>{{item.text}}</text>
       </li>
@@ -94,8 +94,6 @@ export default {
 
   methods: {
     lower(e) {
-      console.log(e);
-      
       let skip = this.list.length;
       this.getList(skip,10)
     },
@@ -113,6 +111,11 @@ export default {
       console.log(this.list)
     },
     scroll() {
+    },
+    handleNavItem(index){
+
+      wx.navigateTo({url:`/pages/nav/n${index}/main`})
+
     }
   },
 
@@ -146,7 +149,7 @@ export default {
       margin-top:5rpx;
       text-align: center;
       vertical-align: middle;
-      font-size: 34rpx;
+      font-size: 28rpx;
       color:#333;
     }
   }
