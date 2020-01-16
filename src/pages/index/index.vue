@@ -10,7 +10,7 @@
     <!-- <div></div> -->
     <view class="scroll-container">
       <scroll-view v-if="list.length>0" class="scroll-wrapper" style="height:100%" lower-threshold="100" scroll-y="true" @scrolltolower="lower" @scroll="scroll">
-        <view class="item-wrapper" v-for="(item,index) in list" :key="index">
+        <view class="item-wrapper" v-for="(item,index) in list" :key="index" @click="gotoArticlePage(item)">
           <view class="item-container">
             <image :src="item.imgUrl" class="main_img"></image>
             <text class="title">{{item.title}}</text>
@@ -116,6 +116,21 @@ export default {
 
       wx.navigateTo({url:`/pages/nav/n${index}/main`})
 
+    },
+    gotoArticlePage(item){
+      wx.navigateTo({
+        url: `/pages/article/main?id=${item._id}`,
+        events: {
+          // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
+          acceptDataFromIndex: function(data) {
+            console.log(data,'daatatatatatatat')
+          },
+        },
+        success:function(res){
+          console.log(res,'sdsdssssssss')
+          res.eventChannel.emit('acceptDataFromIndex',{item})
+        }
+      })
     }
   },
 
@@ -191,7 +206,8 @@ export default {
       }
       .title{
         width: 100%;
-        font-size: 34rpx;
+        margin: 10rpx 5rpx;
+        font-size: 28rpx;
         color:#333;
         display: -webkit-box;
         -webkit-line-clamp: 2;

@@ -1,7 +1,7 @@
 <template>
     <view>
         <scroll-view class="wrapper" v-if="selectlist.length>0">
-          <view class="select-wrapper" v-for="(item,index) in selectlist" :key="index">
+          <view class="select-wrapper" v-for="(item,index) in selectlist" :key="index" >
             <view class="left">
               <view class="title">{{item.article_title}}</view>
               <view class="labels">
@@ -51,7 +51,7 @@ export default {
                     article_title: 'env 的核心目的是通过配置得知目标环境的特点，然后只做必要的转换',
                     star: 200000,
                     comments: 50000,
-                    user_id: 1,
+                    user_id: '5e1ffca62d693a37bc4e64ef',
                     user_name: 'Alita核心目的是通过配置得知目标环境的特点',
                     user_avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
                     imgUrl: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=306848274,3081419636&fm=26&gp=0.jpg',
@@ -62,7 +62,7 @@ export default {
                     article_title: 'env 的核心目的是通过配置得知目标环境的特点，然后只做必要的转换',
                     star: 200,
                     comments: 50,
-                    user_id: 1,
+                    user_id: '5e1ffca62d693a37bc4e64ed',
                     user_name: 'Alita',
                     user_avatar: "https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1578918043739&di=e205ff935e51f3a99c83a80b2e790515&imgtype=0&src=http%3A%2F%2Fimage.biaobaiju.com%2Fuploads%2F20190114%2F23%2F1547479704-qeEQxHVvnm.jpg",
                     imgUrl: 'https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=306848274,3081419636&fm=26&gp=0.jpg',
@@ -77,7 +77,9 @@ export default {
       })
     },
     methods:{
-
+      gotoPeoplePage(id){  //绑定用户信息上 @click="gotoPeoplePage(item.user_id)"
+        wx.navigateTo({url:`/pages/people/main?id=${id}`})
+      }
     }
 }
 </script>

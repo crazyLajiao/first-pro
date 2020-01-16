@@ -1,9 +1,10 @@
 {
   "pages": [
-    "pages/nav/n1/main",
     "pages/index/main",
+    "pages/people/main",
+    "pages/article/main",
     "pages/nav/n0/main",
-    
+    "pages/nav/n1/main",
     "pages/nav/n2/main",
     "pages/all/main",
     "pages/cart/main",

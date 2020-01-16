@@ -1,5 +1,5 @@
 <template>
-    <div>this is n2</div>
+    <div>this is 商城</div>
 </template>
 <script>
 export default {
