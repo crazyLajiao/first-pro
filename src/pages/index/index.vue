@@ -22,7 +22,7 @@
             </view>
           </view>
         </view>
-        <view class="bottomline">没有更多数据了哦~</view>
+        <!-- <view class="bottomline">没有更多数据了哦~</view> -->
       </scroll-view>
 
     </view>
@@ -88,6 +88,7 @@ export default {
     };
   },
   mounted() {
+    console.log('sososososo')
     this.getList(0,15);
   },
   components: {},
@@ -100,6 +101,7 @@ export default {
     async getList(skip,limit){
       try{
           const randomList = await getRandomList({skip,limit});
+          console.log(randomList,'///////uuuuuuuuu')
           if (randomList.status == 1) {
               this.list = [...this.list, ...randomList.data];
           }else{
@@ -127,14 +129,13 @@ export default {
           },
         },
         success:function(res){
-          console.log(res,'sdsdssssssss')
+          console.log(res)
           res.eventChannel.emit('acceptDataFromIndex',{item})
         }
       })
     }
   },
 
-  created() {}
 };
 </script>
 
