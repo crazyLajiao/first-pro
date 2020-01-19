@@ -12,7 +12,12 @@
         </view>
         <view class="comment_container">
             <view class="comment_label">评论: </view>
-            <view class="comment_content">
+            <!-- v-if="pageinfo.comments_content&&pageinfo.comments_content.length>0" -->
+            <view class="comment_content" > 
+                <!-- <view class="user_comment_wrapper" v-for="(com,ind) in pageinfo.comments_content" :key="ind">
+                    <view class="user_name">{{com.user_name}}</view> :
+                    <view class="user_comment">{{com.content}}</view>
+                </view> -->
                 <view class="user_comment_wrapper">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
@@ -22,10 +27,24 @@
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
                 <view class="user_comment_wrapper">
+                    <view class="user_name">alita</view> :
+                    <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
+                </view>
+                <view class="user_comment_wrapper" v-if="isMoreCom">
+                    <view class="click_btn" @click="getMore">点击查看更多评论</view>
+                </view>
+                <view class="user_comment_wrapper" v-if="showMore">
+                    <view class="user_name">alita</view> :
+                    <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
+                </view>
+                <view class="user_comment_wrapper" v-if="showMore">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
             </view>
+            <!-- <view class="no_comment" v-else>
+                暂时还没有评论哦~
+            </view> -->
         </view>
     </view>
 </template>
@@ -36,7 +55,9 @@ export default {
     data(){
         return {
             userinfo: {}, 
-            pageinfo: {}
+            pageinfo: {},
+            isMoreCom: false,
+            showMore: false,
         }
     },
     components:{
@@ -54,7 +75,11 @@ export default {
         // this.getUser(id)
         this.pageinfo.content = this.pageinfo.content.replace(/\<p(?!><img)/gi, '<p style="font-size: 30rpx;text-indent:2em;color:#666;margin: 20rpx;" ')
         this.pageinfo.content = this.pageinfo.content.replace(/\<img/gi, '<img style="max-width:90%;height:auto;margin: 0 5%;border-radius:8%" ')
-        console.log(this.pageinfo)
+
+        // if(this.pageinfo.comments_content.length>3){
+        if(5>3){
+            this.isMoreCom = true
+        }
    },
     methods:{
         async getUser(id){
@@ -68,6 +93,10 @@ export default {
             }catch(err){
                 console.log('获取数据失败', err);
             }
+        },
+        getMore(){
+            this.isMoreCom = false
+            this.showMore = true
         }
     }
 }
@@ -144,7 +173,17 @@ export default {
                 .user_comment{
                     display: inline-block;
                 }
+                .click_btn{
+                    font-size: 28rpx;
+                    color: #ff0000;
+                    text-align:center;
+                }
             }
+        }
+        .no_comment{
+            font-size:30rpx;
+            color: #666;
+            text-align: center;
         }
     }
 </style>
