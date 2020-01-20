@@ -8,6 +8,7 @@ export default {
     methods:{
         login(e){
             wx.setStorageSync('auth',e.mp.detail.userInfo)
+            console.log(e.mp.detail,'00000000000000')
             this.auth = e.mp.detail.userInfo
             this.checkSession()
         },

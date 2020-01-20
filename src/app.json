@@ -30,12 +30,9 @@
       "pagePath": "pages/index/main",
       "iconPath": "static/tabs/home.png",
       "selectedIconPath": "static/tabs/home-active.png"
-    },{
-      "text": "分类",
-      "pagePath": "pages/all/main",
-      "iconPath": "static/tabs/all.png",
-      "selectedIconPath": "static/tabs/all-active.png"
-    },{
+    },
+    
+    {
       "text": "购物车",
       "pagePath": "pages/cart/main",
       "iconPath": "static/tabs/cart.png",

@@ -3,7 +3,12 @@
 </template>
 
 <script>
-
+// {
+//       "text": "分类",
+//       "pagePath": "pages/all/main",
+//       "iconPath": "static/tabs/all.png",
+//       "selectedIconPath": "static/tabs/all-active.png"
+//     },
 export default {
   data () {
     return {

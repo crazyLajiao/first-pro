@@ -12,39 +12,44 @@
         </view>
         <view class="comment_container">
             <view class="comment_label">评论: </view>
-            <!-- v-if="pageinfo.comments_content&&pageinfo.comments_content.length>0" -->
-            <view class="comment_content" > 
-                <!-- <view class="user_comment_wrapper" v-for="(com,ind) in pageinfo.comments_content" :key="ind">
+            <view class="comment_content" v-if="pageinfo.comment_content&&pageinfo.comment_content.length>0"> 
+                <!-- <view class="user_comment_wrapper" v-for="(com,ind) in pageinfo.comment_content" :key="ind">
                     <view class="user_name">{{com.user_name}}</view> :
                     <view class="user_comment">{{com.content}}</view>
                 </view> -->
-                <view class="user_comment_wrapper">
+                <view class="user_comment_wrapper" v-if="isMoreCom&&pageinfo.comment_content.length>=1">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
-                <view class="user_comment_wrapper">
+                <view class="user_comment_wrapper" v-if="isMoreCom&&pageinfo.comment_content.length>=2">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
-                <view class="user_comment_wrapper">
+                <view class="user_comment_wrapper" v-if="isMoreCom&&pageinfo.comment_content.length>=3">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
-                <view class="user_comment_wrapper" v-if="isMoreCom">
+                <view class="user_comment_wrapper" v-if="isMoreCom&&pageinfo.comment_content.length>3">
                     <view class="click_btn" @click="getMore">点击查看更多评论</view>
                 </view>
-                <view class="user_comment_wrapper" v-if="showMore">
+                <view v-if="showMore">
+                    <view class="user_comment_wrapper" v-for="(com,ind) in pageinfo.comment_content" :key="ind">
+                        <view class="user_name">{{com.user_name}}</view> :
+                        <view class="user_comment">{{com.content}}</view>
+                    </view>
+                </view>
+                <!-- <view class="user_comment_wrapper" v-if="showMore">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
                 </view>
                 <view class="user_comment_wrapper" v-if="showMore">
                     <view class="user_name">alita</view> :
                     <view class="user_comment">谢谢楼主科普，太有用了~~~~</view>
-                </view>
+                </view> -->
             </view>
-            <!-- <view class="no_comment" v-else>
+            <view class="no_comment" v-else>
                 暂时还没有评论哦~
-            </view> -->
+            </view>
         </view>
     </view>
 </template>
@@ -75,9 +80,39 @@ export default {
         // this.getUser(id)
         this.pageinfo.content = this.pageinfo.content.replace(/\<p(?!><img)/gi, '<p style="font-size: 30rpx;text-indent:2em;color:#666;margin: 20rpx;" ')
         this.pageinfo.content = this.pageinfo.content.replace(/\<img/gi, '<img style="max-width:90%;height:auto;margin: 0 5%;border-radius:8%" ')
-
-        // if(this.pageinfo.comments_content.length>3){
-        if(5>3){
+        console.log(this.pageinfo)
+        this.pageinfo.comment_content = [
+            {
+                id: 112,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 113,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 114,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 115,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 116,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 117,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },{
+                id: 118,
+                user_name: '游客cmm',
+                content: '谢谢楼主科普，太有用了~~~~'
+            },
+        ]  //数据库数据有问题暂时这么处理
+        if(this.pageinfo.comment_content&&this.pageinfo.comment_content.length>3){
             this.isMoreCom = true
         }
    },
